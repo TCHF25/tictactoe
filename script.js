@@ -4,7 +4,7 @@ const boxElements = document.querySelectorAll('[data-box]')
 const grid = document.getElementById('grid')
 const wonMessageElement = document.getElementById('wonMessage')
 const restartBtn = document.getElementById('restartBtn')
-const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
+const winningText = document.querySelector('[winning-text]')
 const winning_combinations = [
   [0, 1, 2],
   [3, 4, 5],
@@ -26,14 +26,14 @@ function startGame() {
   boxElements.forEach(cell => {
     cell.classList.remove(red_class)
     cell.classList.remove(yellow_class)
-    cell.removeEventListener('click', handleClick)
-    cell.addEventListener('click', handleClick, { once: true })
+    cell.removeEventListener('click', onClick)
+    cell.addEventListener('click', onClick, { once: true })
   })
   setBoardHoverClass()
   wonMessageElement.classList.remove('show')
 }
 
-function handleClick(e) {
+function onClick(e) {
   const cell = e.target
   const currentClass = Turn ? yellow_class : red_class
   appear(cell, currentClass)
@@ -42,7 +42,7 @@ function handleClick(e) {
   } else if (isDraw()) {
     end(true)
   } else {
-    swapTurns()
+    Turns()
     setBoardHoverClass()
   }
 }
@@ -50,9 +50,9 @@ function handleClick(e) {
 
 function end(draw) {
   if (draw) {
-    winningMessageTextElement.innerText = 'Draw!'
+    winningText.innerText = 'Draw!'
   } else {
-    winningMessageTextElement.innerText = `${Turn ? "Yellow" : "Red"} Wins!`
+    winningText.innerText = `${Turn ? "Yellow" : "Red"} Wins!`
   }
   wonMessageElement.classList.add('show')
 }
@@ -67,7 +67,7 @@ function appear(cell, currentClass) {
   cell.classList.add(currentClass)
 }
 
-function swapTurns() {
+function Turns() {
   Turn = !Turn
 }
 
