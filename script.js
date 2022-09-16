@@ -1,9 +1,9 @@
 const red_class = 'red'
 const yellow_class = 'yellow'
-const cellElements = document.querySelectorAll('[data-cell]')
+const boxElements = document.querySelectorAll('[data-box]')
 const grid = document.getElementById('grid')
 const wonMessageElement = document.getElementById('wonMessage')
-const restartButton = document.getElementById('restartBtn')
+const restartBtn = document.getElementById('restartBtn')
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
 const winning_combinations = [
   [0, 1, 2],
@@ -19,11 +19,11 @@ let Turn
 
 startGame()
 
-restartButton.addEventListener('click', startGame)
+restartBtn.addEventListener('click', startGame)
 
 function startGame() {
   Turn = false
-  cellElements.forEach(cell => {
+  boxElements.forEach(cell => {
     cell.classList.remove(red_class)
     cell.classList.remove(yellow_class)
     cell.removeEventListener('click', handleClick)
@@ -58,7 +58,7 @@ function end(draw) {
 }
 
 function isDraw() {
-  return [...cellElements].every(cell => {
+  return [...boxElements].every(cell => {
     return cell.classList.contains(red_class) || cell.classList.contains(yellow_class)
   })
 }
@@ -84,7 +84,7 @@ function setBoardHoverClass() {
 function checkWin(currentClass) {
   return winning_combinations.some(combination => {
     return combination.every(index => {
-      return cellElements[index].classList.contains(currentClass)
+      return boxElements[index].classList.contains(currentClass)
     })
   })
 }
