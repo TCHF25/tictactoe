@@ -1,8 +1,8 @@
 const red_class = 'red'
 const yellow_class = 'yellow'
 const cellElements = document.querySelectorAll('[data-cell]')
-const board = document.getElementById('board')
-const winningMessageElement = document.getElementById('winningMessage')
+const grid = document.getElementById('grid')
+const wonMessageElement = document.getElementById('wonMessage')
 const restartButton = document.getElementById('restartBtn')
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
 const winning_combinations = [
@@ -30,13 +30,13 @@ function startGame() {
     cell.addEventListener('click', handleClick, { once: true })
   })
   setBoardHoverClass()
-  winningMessageElement.classList.remove('show')
+  wonMessageElement.classList.remove('show')
 }
 
 function handleClick(e) {
   const cell = e.target
   const currentClass = circleTurn ? yellow_class : red_class
-  placeMark(cell, currentClass)
+  appear(cell, currentClass)
   if (checkWin(currentClass)) {
     end(false)
   } else if (isDraw()) {
@@ -54,7 +54,7 @@ function end(draw) {
   } else {
     winningMessageTextElement.innerText = `${circleTurn ? "Yellow" : "Red"} Wins!`
   }
-  winningMessageElement.classList.add('show')
+  wonMessageElement.classList.add('show')
 }
 
 function isDraw() {
@@ -63,7 +63,7 @@ function isDraw() {
   })
 }
 
-function placeMark(cell, currentClass) {
+function appear(cell, currentClass) {
   cell.classList.add(currentClass)
 }
 
@@ -72,8 +72,8 @@ function swapTurns() {
 }
 
 function setBoardHoverClass() {
-  board.classList.remove(red_class)
-  board.classList.remove(yellow_class)
+  grid.classList.remove(red_class)
+  grid.classList.remove(yellow_class)
   if (circleTurn) {
     board.classList.add(yellow_class)
   } else {
