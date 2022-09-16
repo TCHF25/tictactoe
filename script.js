@@ -15,14 +15,14 @@ const winning_combinations = [
   [0, 4, 8],
   [2, 4, 6]
 ]
-let circleTurn
+let Turn
 
 startGame()
 
 restartButton.addEventListener('click', startGame)
 
 function startGame() {
-  circleTurn = false
+  Turn = false
   cellElements.forEach(cell => {
     cell.classList.remove(red_class)
     cell.classList.remove(yellow_class)
@@ -35,7 +35,7 @@ function startGame() {
 
 function handleClick(e) {
   const cell = e.target
-  const currentClass = circleTurn ? yellow_class : red_class
+  const currentClass = Turn ? yellow_class : red_class
   appear(cell, currentClass)
   if (checkWin(currentClass)) {
     end(false)
@@ -52,7 +52,7 @@ function end(draw) {
   if (draw) {
     winningMessageTextElement.innerText = 'Draw!'
   } else {
-    winningMessageTextElement.innerText = `${circleTurn ? "Yellow" : "Red"} Wins!`
+    winningMessageTextElement.innerText = `${Turn ? "Yellow" : "Red"} Wins!`
   }
   wonMessageElement.classList.add('show')
 }
@@ -68,16 +68,16 @@ function appear(cell, currentClass) {
 }
 
 function swapTurns() {
-  circleTurn = !circleTurn
+  Turn = !Turn
 }
 
 function setBoardHoverClass() {
   grid.classList.remove(red_class)
   grid.classList.remove(yellow_class)
-  if (circleTurn) {
-    board.classList.add(yellow_class)
+  if (Turn) {
+    grid.classList.add(yellow_class)
   } else {
-    board.classList.add(red_class)
+    grid.classList.add(red_class)
   }
 }
 
